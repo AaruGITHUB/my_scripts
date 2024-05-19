@@ -1,0 +1,21 @@
+@echo off
+::Getting the hostname of the computer and trimmed the values for Region segregation.
+Set "Host=%Computername%"
+Set "Host=%Host :~ 0,1%"
+
+::Using IF condition decision would be taken by calling the right label
+If "%Host%" == "T" (Goto Template)
+If "%Host%" == "C" (Goto Controls)
+
+echo ERROR: Install controls manually without fail.
+echo(
+pause
+
+:Controls
+start "C:\Users\<name>\Desktop\<application>.exe"
+msiexec.exe /i "C:\Users\<name>\Desktop\application.msi"
+
+::Enable auto deletion of script on successful installation on controls
+DEL "%~f0"
+
+:Template
